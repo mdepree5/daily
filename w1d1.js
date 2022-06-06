@@ -115,3 +115,7 @@ const searchInsertPosition = (nums, target) => {
   }
   return left;
 }
+
+const reverseString = s => s.split("").reverse().join("");
+console.log(reverseString("hello"));
+// also iterate-decrementing logic
