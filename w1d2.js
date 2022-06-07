@@ -8,6 +8,14 @@ const twoSum = (nums, target) => {
     hash[target - nums[i]] = i;
   };
 };
+// => if conditional checks if the 'complement' is stored in the hash as a valid index (hence >= 0)
+const twoSum2 = (nums, target) => {
+  const hash = {};
+  for (let i = 0; i < nums.length; i++){
+    if (hash[nums[i]] >= 0) return [hash[nums[i]], i];
+    hash[target - nums[i]] = i;
+  };
+};
 
 const mergeSortedArray = (arr1, m, arr2, n) => {
   let first = m - 1;
@@ -30,7 +38,7 @@ const mergeSortedArray = (arr1, m, arr2, n) => {
   };
 };
 
-/* const mergeSortedArra = (arr1, m, arr2, n) => {
+/* const mergeSortedArray = (arr1, m, arr2, n) => {
   let first = m - 1;
   let second = n - 1;
   let i = m + n - 1;
