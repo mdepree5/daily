@@ -193,3 +193,68 @@ const fiveSort = nums => {
   }
   return nums;
 }
+
+// todo ——————————————————————————————————————————————————————————————————————————————————
+// => depth also implemented iteratively with stack. goes all the way to the end before changing direction.
+const depthFirstGraph = root => {
+  if (root === null) return [];
+
+  const leftVals = depthFirstGraph(root.left);
+  const rightVals = depthFirstGraph(root.right);
+  return [root.val, ...leftVals, ...rightVals];
+};
+
+// => breadth only implemented iteratively with queue. successive nodes are added to end of stack. all nodes are met at a level before going deeper.
+const breadthFirstGraph = root => {
+  if (root === null) return [];
+
+  const values = [];
+  const queue = [root];
+
+  while (queue.length > 0) {
+    const node = queue.shift();
+    values.push(node.val);
+
+    if (node.left !== null) queue.push(node.left);
+    if (node.right !== null) queue.push(node.right);
+  }
+
+  return values;
+}
+// => breadth first, use a queue. node val === target comparison. adding child nodes to queue. technically O(n2) because javascript shift method runs o(n).
+const binaryTreeIncludes = (root, target) => {
+  if (root === null) return false;
+  const queue = [root];
+
+  while(queue.length > 0) {
+    const node = queue.shift();
+    if (node.val === target) return true;
+    if (node.left !== null) queue.push(node.left);
+    if (node.right !== null) queue.push(node.right);
+  }
+  return false;
+}
+// => depth first graph problem. src===dest check for each neighbors in the adjacency list of the graph at source node.
+const hasPathDepthFirst = (graph, source, destination) => {
+  if (source === destination) return binaryTreeIncludes.val;
+  for (let neighbor of graph[source]) {
+    if (hasPathDepthFirst(graph, neighbor, destination) === true) return true;
+  }
+
+  return false;
+};
+// => leverage queue and push successive neighbors. comparison check start of iterative logic.
+const hasPathBreadthFirst = (graph, source, destination) => {
+  const queue = [source];
+
+  while (queue.length) {
+    const current = queue.shift();
+    if (current === destination) return true;
+
+    for (let neighbor of graph[current]) {
+      queue.push(neighbor)
+    }
+  }
+
+  return false;
+}
