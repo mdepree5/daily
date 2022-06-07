@@ -258,3 +258,21 @@ const hasPathBreadthFirst = (graph, source, destination) => {
 
   return false;
 }
+// => node construction. class Node {}, constructor (val), this.val, this.next. this.prev is doubly.
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+// => sumLinkedList current!==null while loop logic. current -> current.next reassignment end of loop logic.
+const sumLinkedList = head => {
+  let sum = 0;
+  let current = head;
+  while (current !== null) {
+    sum += current.val;
+    current = current.next;
+  }
+  return sum;
+}
+
