@@ -1,6 +1,12 @@
 // todo ——————————————————————————————————————————————————————————————————————————————————
 // todo                               Thu June 30, 2022
 // todo ——————————————————————————————————————————————————————————————————————————————————
+// => linked-list cycle detection 
+/* 
+  logic:
+  if not cycle: faster (or faster.next, to accommmodate for even/odd) will hit null
+  if cycle: two runners on a track, eventually one will eclipse the other
+*/
 const hasCycle = head => {
   if (head === null) return false;
 
@@ -12,9 +18,10 @@ const hasCycle = head => {
     fast = fast.next.next;
     slow = slow.next;
   };
-  
+
   return true;
 };
+
 
 // => palindrome Linked List in O(n) time and O(1) space, via in-place reverse
 const palindromeLL = head => {
@@ -43,7 +50,7 @@ const endOfFirstHalf = head => {
     fast = fast.next.next;
     slow = slow.next;
   };
-  return slow;
+  return slow; // => return the node that has arrived at the midpoint via proxy of 2x/1x logic
 };
 
 const reverseALinkedList = (head, prev = null) => {
