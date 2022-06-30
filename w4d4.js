@@ -1,6 +1,61 @@
 // todo ——————————————————————————————————————————————————————————————————————————————————
 // todo                               Thu June 30, 2022
 // todo ——————————————————————————————————————————————————————————————————————————————————
+const hasCycle = head => {
+  if (head === null) return false;
+
+  let slow = head;
+  let fast = head.next;
+
+  while (slow !== fast) {
+    if (fast === null || fast.next === null) return false;
+    fast = fast.next.next;
+    slow = slow.next;
+  };
+  
+  return true;
+};
+
+// => palindrome Linked List in O(n) time and O(1) space, via in-place reverse
+const palindromeLL = head => {
+  if (head === null) return true;
+
+  let firstHalf = endOfFirstHalf(head);
+  let secondHalf = reverseALinkedList(firstHalf.next);
+
+  let p1 = head;
+  let p2 = secondHalf;
+
+  while (p2 !== null) {
+    if (p1.val !== p2.val) return false;
+    p1 = p1.next;
+    p2 = p2.next;
+  };
+
+  return true;
+};
+
+// => fast/slow pointer x2/x1. returning slow is returning the midpoint.
+const endOfFirstHalf = head => {
+  let fast = head;
+  let slow = head;
+  while (fast.next !== null && fast.next.next !== null) {
+    fast = fast.next.next;
+    slow = slow.next;
+  };
+  return slow;
+};
+
+const reverseALinkedList = (head, prev = null) => {
+  if (head === null) return prev;
+  const next = head.next;
+  head.next = prev;
+  return reverseALinkedList(next, head);
+};
+// **** ——————————————————————————————————————————————————————————————————————————————————
+// ****                               linked-list mixed
+// **** ——————————————————————————————————————————————————————————————————————————————————
+
 const mergeLListRecall = (l1, l2) => {
   let dummy = new Node(0);
   let tail = dummy;
