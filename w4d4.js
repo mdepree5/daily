@@ -1,6 +1,57 @@
 // todo ——————————————————————————————————————————————————————————————————————————————————
 // todo                               Thu June 30, 2022
 // todo ——————————————————————————————————————————————————————————————————————————————————
+const mergeLListRecall = (l1, l2) => {
+  let dummy = new Node(0);
+  let tail = dummy;
+  let curr1 = l1;
+  let curr2 = l2;
+
+  while (curr1 !== null && curr2 !== null) {
+    if (curr1.val < curr2.val) { // => choose lower value of l1 or l2 for in-order sorting
+      tail.next = curr1; // => populate dummy with the value from one of the linked-lists
+      curr1 = curr1.next; // => iterate to next value in the same linked-list
+    } else {
+      tail.next = curr2;
+      curr2 = curr2.next;
+    };
+    tail = tail.next; // => reassign the current tail pointer to be able to assign the next tail.next value
+  };
+
+  if (curr1 !== null) tail.next = curr1; // => if only one of the lists remains, attach the rest of it to the end
+  if (curr2 !== null) tail.next = curr2;
+  
+  return dummy.next; // => return our dummy.next
+};
+
+const reverseLL = (head, prev = null) => {
+  if (head === null) return prev; // => base case: returning the 'reassigned head' which is recursively updated to be the last element in the reversed list
+  const next = head.next; // => if we do not save the next variable, we can't make our recurisve call to traverse the linked-list
+  head.next = prev; // => we are reassigning to point backward to the 'previous' node. we pass in the current 'head' to our recursive call
+  return reverseLL(next, head); // => call next as our next head (for traversal) and head as our next prev, which will be used as the "prev" reassignment
+};
+
+const removeNthFromEndLL = (head, n) => {
+  let dummy = new Node(0);
+  dummy.next = head;
+  let pointer1 = dummy;
+  let pointer2 = dummy;
+
+  for (let i = 0; i < n; i++) pointer1 = pointer1.next; // => traverse til pointer1 is n distance away from pointer2
+
+  while (pointer1 !== null) {
+    pointer1 = pointer1.next; // => ll traversal with both pointers til pointer1 reaches end of ll
+    pointer2 = pointer2.next; // => upon end of traversal pointer2 should be 'n' distance away from end
+  };
+  pointer2.next = pointer2.next.next; // => reassign pointer2 to next.next, effectively removing the 'next'/target node
+  return dummy.next; // => return the modified ll which we created dummy reference for
+};
+
+const deleteNodeWithoutHead = node => {
+  node.val = node.next.val; // => reassign val to next's val
+  node.next = node.next.next; // => reassign next to next's next
+};
+
 const leafListIterative = root => {
   if (root === null) return [];
   const leaves = [];
