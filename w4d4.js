@@ -1,6 +1,39 @@
 // todo ——————————————————————————————————————————————————————————————————————————————————
 // todo                               Thu June 30, 2022
 // todo ——————————————————————————————————————————————————————————————————————————————————
+const leafListIterative = root => {
+  if (root === null) return [];
+  const leaves = [];
+  const stack = [root];
+  while(stack.length) {
+    const current = stack.pop();
+    if (current.left === null && current.right === null) leaves.push(current.val)
+    
+    if (current.left !== null) stack.push(current.left);
+    if (current.right !== null) stack.push(current.right);
+  };
+  return leaves;
+};
+
+const leafListRecursive = root => {
+  const leaves = [];
+  fill(root, leaves);
+  return leaves;
+};
+
+const fill = (root, leaves) => {
+  if (root === null) return;
+  if (root.left === null && root.right === null) leaves.push(root.val);
+  fill(root.left, leaves);
+  fill(root.right, leaves);
+};
+
+/* 
+the reality is time is on my side. 
+if I do not successfully navigate the big technical interviews
+ahead of me this year, I can try again in the future
+with more time, practice, concentrated effort, experience
+*/
 
 const mergeListDummy = (l1, l2) => {
   let dummy = new Node(null);
@@ -27,7 +60,6 @@ const mergeListDummy = (l1, l2) => {
 /* 
 iterating through linked-lists necessitates reassigning current/next pointers
 */
-
 
 // => recursive solution
 const mergeLists = (head1, head2) => {
